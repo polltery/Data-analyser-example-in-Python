@@ -54,9 +54,9 @@ GUI Mode:
 1. Task 2 (completed)
     1. Part a (completed)
     2. Part b (completed)
-2. Task 3
-    1. Part a
-    2. Part b
+2. Task 3 (completed)
+    1. Part a (completed)
+    2. Part b (completed)
 3. Task 4 (completed)
 4. Task 5
     1. Part a
