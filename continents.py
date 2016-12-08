@@ -1,5 +1,6 @@
-# Created by Balraj 08/12/16
+#!/usr/bin/python3
 
+# Created by Balraj 08/12/16
 
 # Constants (taken from histo example from macs)
 continents = {
