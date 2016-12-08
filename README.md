@@ -21,9 +21,9 @@ Basic
 2. Allow for GUI Interface (Completed)
 
 CMD Mode:
-1. Task 2
+1. Task 2 (completed)
     1. Part a (completed)
-    2. Part b
+    2. Part b (completed)
 2. Task 3 (completed)
     1. Part a (completed)
     2. Part b (completed)
