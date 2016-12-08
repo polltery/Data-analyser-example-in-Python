@@ -51,9 +51,9 @@ class Application(tk.Frame):
         self.docIdEntry = tk.Entry(self.t1inputFrame)
         self.docIdEntry.pack(side='left')
         # Task 2 Doc ID submit button and pack it
-        self.docIdEntrySubmit = tk.Button(self.buttonFrame, text='Group by country', command=self.drawTask2Hist)
+        self.docIdEntrySubmit = tk.Button(self.buttonFrame, text='Group by country', command=lambda: self.drawTask2Hist(0))
         self.docIdEntrySubmit.pack(side='right')
-        self.docIdEntrySubmitSecondary = tk.Button(self.buttonFrame, text='Group by Continent', command=self.drawTask2Hist)
+        self.docIdEntrySubmitSecondary = tk.Button(self.buttonFrame, text='Group by Continent', command=lambda: self.drawTask2Hist(1))
         self.docIdEntrySubmitSecondary.pack(side='right')
         # Pack Task 2 frame and child frames
         self.t1inputFrame.pack()
@@ -126,26 +126,38 @@ class Application(tk.Frame):
         self.task5SubmitFrame.pack()
         self.task5Frame.pack(padx=5,pady=5)
 
-    def drawTask2Hist(self):
+    def drawTask2Hist(self,type):
         if self.docIdEntry.get() == '':
             self.displayPopup('Error','Please enter a document UUID')
-            plt.barh([1,2,3], [22,33,77], align='center', alpha=0.4)
-            plt.show()
         else:
             self.fig = Figure(figsize=(5,4), dpi=100)
-            task2data = analytics.getFilteredTask2(self.pdData, self.docIdEntry.get())
-            countries = task2data.groupby('visitor_country')['visitor_country']
-            counts = task2data.groupby('visitor_country')['visitor_country'].count()
-            print(counts)
-            print(countries)
-            self.p = counts.hist()
-            self.p.set_xlabel('Country', fontsize = 15)
-            self.p.set_ylabel('Views', fontsize = 15)
-        # #self.a = self.fig.add_subplot(111)
-        # #self.a.plot()
-            self.canvas = FigureCanvasTkAgg(self.p, self.task2GraphFrame)
-            self.canvas.show()
-            self.canvas.get_tk_widget().pack()
+            task2Data = analytics.getFilteredTask2(self.pdData, self.docIdEntry.get())
+            countries = task2Data.groupby('visitor_country')['visitor_country']
+            counts = task2Data.groupby('visitor_country')['visitor_country'].count()
+            countriesList = []
+            countriesCountList = []
+            for key,value in countries:
+                countriesList.append(key)
+                countriesCountList.append(int(counts[key]))
+            if type == 0:
+                n = len(countriesList)
+                plt.bar(range(n), countriesCountList, align='center', alpha=0.4)
+                plt.xticks(range(n), countriesList)
+                plt.ylabel('Counts')
+                plt.xlabel('Countries')
+                plt.title('Views by countries')
+                plt.show()
+            if type == 1:
+                task2Data = analytics.getFilteredTask2ByContinent(self.pdData,self.docIdEntry.get())
+                continentCountList = task2Data.tolist()
+                continentList = task2Data.index.tolist()
+                n = len(continentList)
+                plt.bar(range(n), continentCountList, align='center', alpha=0.4)
+                plt.xticks(range(n), continentList)
+                plt.ylabel('Counts')
+                plt.xlabel('Continents')
+                plt.title('Views by Continents')
+                plt.show()
 
     def drawTask3Hist(self):
         plt.barh([1,2,3], [22,33,77], align='center', alpha=0.4)

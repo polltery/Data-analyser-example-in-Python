@@ -2,7 +2,21 @@ The application runs on python 3.5
 
 To install libraries for python 3.5, use
 ```
-pip3.5 install <libraryName>
+pip3 install <libraryName>
+```
+
+To run in GUI mode
+```
+python3 app.py
+```
+
+To run with CLI provide a positional argument
+```
+python3 app.py [-t] [-d] [-u]
+
+or use
+
+python3 app.py --help
 ```
 
 External Python 3.5 Libraries required are
@@ -37,9 +51,9 @@ CMD Mode:
     6. Part f
 
 GUI Mode:
-1. Task 2
-    1. Part a
-    2. Part b
+1. Task 2 (completed)
+    1. Part a (completed)
+    2. Part b (completed)
 2. Task 3
     1. Part a
     2. Part b

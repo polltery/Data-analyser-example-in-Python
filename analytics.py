@@ -14,20 +14,24 @@ pd.options.mode.chained_assignment = None  # default='warn'
 # Print task 2 for CMD
 def printTask2(pdData, doc_id):
     print('Here are views by country for the given document')
-    pdData = pdData.loc[pdData['subject_doc_id'] == doc_id]
+    pdData = getFilteredTask2(pdData, doc_id)
     countryCount = pdData.groupby('visitor_country')['visitor_country'].count()
     print('Visits grouped by country:')
     print(countryCount)
-    for index, row in pdData.iterrows():
-        # Get the continent using continent module
-        cont = continents.continentName(continents.countryToContinent(row['visitor_country']))
-        pdData.loc[index,'visitor_country'] = cont
+    continentCount = getFilteredTask2ByContinent(pdData,doc_id)
     print('Countries by continent')
-    continentCount = pdData.groupby('visitor_country')['visitor_country'].count()
     print(continentCount)
     
 def getFilteredTask2(pdData, doc_id):
     return pdData.loc[pdData['subject_doc_id'] == doc_id]
+
+def getFilteredTask2ByContinent(pdData, doc_id):
+    pdData = getFilteredTask2(pdData, doc_id)
+    for index, row in pdData.iterrows():
+        # Get the continent using continent module
+        cont = continents.continentName(continents.countryToContinent(row['visitor_country']))
+        pdData.loc[index,'visitor_country'] = cont
+    return pdData.groupby('visitor_country')['visitor_country'].count()
 
 # Print task 3 for CMD
 def printTask3(pdData, verbose):
