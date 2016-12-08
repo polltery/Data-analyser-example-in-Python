@@ -37,17 +37,23 @@ def getFilteredTask2ByContinent(pdData, doc_id):
 def printTask3(pdData, verbose):
     print('Here are views from browsers : ')
     if not verbose:
-        print(pdData.groupby('visitor_useragent')['visitor_useragent'].count())
+        print(getFilteredTask3(pdData))
     else:
-        pdData = pdData['visitor_useragent'].str.replace('Mozilla.+','Mozilla')
-        pdData = pdData.reset_index()
-        pdData = pdData['visitor_useragent'].str.replace('Opera.+','Opera')
-        pdData = pdData.reset_index()
-        pdData = pdData['visitor_useragent'].str.replace('Dalvik.+','Dalvik')
-        pdData = pdData.reset_index()
-        pdData = pdData['visitor_useragent'].str.replace('UCWEB.+','UCWEB')
-        pdData = pdData.reset_index()
-        print(pdData.groupby('visitor_useragent').count())
+        print(getFilteredTask3Verbose(pdData))
+
+def getFilteredTask3(pdData):
+    return pdData.groupby('visitor_useragent')['visitor_useragent'].count()
+
+def getFilteredTask3Verbose(pdData):
+    pdData = pdData['visitor_useragent'].str.replace('Mozilla.+','Mozilla')
+    pdData = pdData.reset_index()
+    pdData = pdData['visitor_useragent'].str.replace('Opera.+','Opera')
+    pdData = pdData.reset_index()
+    pdData = pdData['visitor_useragent'].str.replace('Dalvik.+','Dalvik')
+    pdData = pdData.reset_index()
+    pdData = pdData['visitor_useragent'].str.replace('UCWEB.+','UCWEB')
+    pdData = pdData.reset_index()
+    return pdData.groupby('visitor_useragent')['visitor_useragent'].count()
 
 # Print task 4 for CMD
 def printTask4(pdData):

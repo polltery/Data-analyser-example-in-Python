@@ -125,7 +125,8 @@ class Application(tk.Frame):
         self.task5OptionsFrame.pack()
         self.task5SubmitFrame.pack()
         self.task5Frame.pack(padx=5,pady=5)
-
+    
+    # function for task 2
     def drawTask2Hist(self,type):
         if self.docIdEntry.get() == '':
             self.displayPopup('Error','Please enter a document UUID')
@@ -140,29 +141,21 @@ class Application(tk.Frame):
                 countriesList.append(key)
                 countriesCountList.append(int(counts[key]))
             if type == 0:
-                n = len(countriesList)
-                plt.bar(range(n), countriesCountList, align='center', alpha=0.4)
-                plt.xticks(range(n), countriesList)
-                plt.ylabel('Counts')
-                plt.xlabel('Countries')
-                plt.title('Views by countries')
-                plt.show()
+                self.displayHistogram(countriesList, countriesCountList, 'Countries', 'Document views by Countries')
             if type == 1:
                 task2Data = analytics.getFilteredTask2ByContinent(self.pdData,self.docIdEntry.get())
                 continentCountList = task2Data.tolist()
                 continentList = task2Data.index.tolist()
-                n = len(continentList)
-                plt.bar(range(n), continentCountList, align='center', alpha=0.4)
-                plt.xticks(range(n), continentList)
-                plt.ylabel('Counts')
-                plt.xlabel('Continents')
-                plt.title('Views by Continents')
-                plt.show()
+                self.displayHistogram(continentList, continentCountList, 'Continents', 'Document views by Continents')
 
+    # Funtion for task 3
     def drawTask3Hist(self):
-        plt.barh([1,2,3], [22,33,77], align='center', alpha=0.4)
-        plt.show()
+        task3Data = analytics.getFilteredTask3Verbose(self.pdData)
+        browserCountList = task3Data.tolist()
+        browserList = task3Data.index.tolist()
+        self.displayHistogram(browserList, browserCountList, 'Browsers', 'Views by browser for issuu.com')
 
+    # creates and displays a popup in a new window
     def displayPopup(self,title,message):
         self.top = tk.Toplevel()
         self.top.wm_geometry('300x150')
@@ -171,3 +164,13 @@ class Application(tk.Frame):
         self.msg.pack()
         self.button = tk.Button(self.top, text="Dismiss", command=self.top.destroy)
         self.button.pack()
+
+    # Creates and displays a histogram in a new window
+    def displayHistogram(self, list, countList, listLabel, title):
+        n = len(list)
+        plt.bar(range(n), countList, align='center', alpha=0.4)
+        plt.xticks(range(n), list)
+        plt.ylabel('Counts')
+        plt.xlabel(listLabel)
+        plt.title(title)
+        plt.show()
