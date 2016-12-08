@@ -4,6 +4,7 @@
 
 # System libraries
 import tkinter as tk
+import sys
 
 # External libraries
 import pandas as pd
@@ -22,39 +23,53 @@ class Application(tk.Frame):
     data = {}
     def __init__(self, pdData, master=None):
         super().__init__(master)
-        master.minsize(500,500)
+        master.minsize(500,550)
         self.pack()
         self.create_widgets(pdData)
 
     def create_widgets(self, pdData):
+        # Assign the data
         self.pdData = pdData
         # setup The main label and pack it
         self.descLabel = tk.Label(self,text='Coursework 2: Python App for Analytics by Balraj',pady=5)
         self.descLabel.pack(side='top')
-        # setup Task 2 Frame
+        # Create task widgets
+        self.createTask2Widgets(pdData)
+        self.createTask3Widgets(pdData)
+        self.createTask4Widgets(pdData)
+        self.createTask5Widgets(pdData)
+
+    def createTask2Widgets(self,pdData):
+        # setup Task 2 Frame and child frames
         self.task2Frame = tk.LabelFrame(self, text='Task 2: Views by country', padx=5, pady=5)
+        self.t1inputFrame = tk.Frame(self.task2Frame,pady=2)
+        self.buttonFrame = tk.Frame(self.task2Frame,pady=2)
         # setup Task 2 Doc ID label and pack it
-        self.docIdEntryLabel = tk.Label(self.task2Frame, text='Document UUID')
+        self.docIdEntryLabel = tk.Label(self.t1inputFrame, text='Document UUID')
         self.docIdEntryLabel.pack(side='left')
         # Task 2 Doc ID entry and pack it
-        self.docIdEntry = tk.Entry(self.task2Frame)
+        self.docIdEntry = tk.Entry(self.t1inputFrame)
         self.docIdEntry.pack(side='left')
         # Task 2 Doc ID submit button and pack it
-        self.docIdEntrySubmit = tk.Button(self.task2Frame, text='Submit', command=self.drawTask2Hist)
+        self.docIdEntrySubmit = tk.Button(self.buttonFrame, text='Group by country', command=self.drawTask2Hist)
         self.docIdEntrySubmit.pack(side='right')
-        self.task2GraphFrame = tk.Frame(self)
-        # Pack Task 2 frame
+        self.docIdEntrySubmitSecondary = tk.Button(self.buttonFrame, text='Group by Continent', command=self.drawTask2Hist)
+        self.docIdEntrySubmitSecondary.pack(side='right')
+        # Pack Task 2 frame and child frames
+        self.t1inputFrame.pack()
+        self.buttonFrame.pack()
         self.task2Frame.pack(padx=5,pady=5)
-        # Pack task 2 frame again to insert the graph
-        self.task2Frame.pack()
-        self.task2GraphFrame.pack()
+    
+    def createTask3Widgets(self,pdData):
         # setup Task 3 Frame
         self.task3Frame = tk.LabelFrame(self, text='Task 3: Views by browser', padx=5, pady=5)
         # TODO: Add Graph for task 3
-        self.graphLabel = tk.Label(self.task3Frame, text='GRAPH 3 GOES HERE')
-        self.graphLabel.pack()
+        self.task3ViewBtn = tk.Button(self.task3Frame, text='View graph', command=self.drawTask3Hist)
+        self.task3ViewBtn.pack()
         # Pack Task 3 Frame
         self.task3Frame.pack(padx=5,pady=5)
+    
+    def createTask4Widgets(self,pdData):
         # Setup task 4 frame
         self.task4Frame = tk.LabelFrame(self,text='Task 4: Top 10 Reader profiles', padx=5, pady=5)
         # setup a listbox to display top 10 users and their time
@@ -71,10 +86,51 @@ class Application(tk.Frame):
         # Pack task 4 frame
         self.topTenListBox.pack()
         self.task4Frame.pack(padx=5,pady=5)
+    
+    def createTask5Widgets(self,pdData):
+        # Setup task 5 Frame and child frames
+        self.task5Frame = tk.LabelFrame(self,text='Task 5: Also likes functionality')
+        self.task5UserInputFrame = tk.Frame(self.task5Frame)
+        self.task5DocInputFrame = tk.Frame(self.task5Frame)
+        self.task5OptionsFrame = tk.Frame(self.task5Frame)
+        self.task5SubmitFrame = tk.Frame(self.task5Frame)
+        # Add label and inputs for task5 user input frame
+        self.task5UserEntryLabel = tk.Label(self.task5UserInputFrame, text='User UUID: ')
+        self.task5UserEntry = tk.Entry(self.task5UserInputFrame)
+        self.task5UserEntryLabel.pack(side='left')
+        self.task5UserEntry.pack()
+        # Add label and inputs for task5 doc input frame
+        self.task5DocEntryLabel = tk.Label(self.task5DocInputFrame, text='Doc UUID: ')
+        self.task5DocEntry = tk.Entry(self.task5DocInputFrame)
+        self.task5DocEntryLabel.pack(side='left')
+        self.task5DocEntry.pack()
+        # Add options for task5Frame
+        self.task5OptionsLabel = tk.Label(self.task5OptionsFrame, text='Select sort option: ')
+        self.task5OptionsLabel.pack(side='left')
+        OPTIONS = [
+            "Sort by Part D",
+            "Sort by Part E",
+            "Sort by Part F"
+        ]
+        self.optionVar = tk.StringVar()
+        self.optionVar.set(OPTIONS[0])
+        self.task5Options = tk.OptionMenu(self.task5OptionsFrame, self.optionVar,*OPTIONS)
+        self.task5Options.pack()
+        # Button frame
+        self.task5SubmitBtn = tk.Button(self.task5SubmitFrame, text='View top 10 list')
+        self.task5SubmitBtn.pack()
+        # Pack task5 frames
+        self.task5UserInputFrame.pack()
+        self.task5DocInputFrame.pack()
+        self.task5OptionsFrame.pack()
+        self.task5SubmitFrame.pack()
+        self.task5Frame.pack(padx=5,pady=5)
 
     def drawTask2Hist(self):
         if self.docIdEntry.get() == '':
             self.displayPopup('Error','Please enter a document UUID')
+            plt.barh([1,2,3], [22,33,77], align='center', alpha=0.4)
+            plt.show()
         else:
             self.fig = Figure(figsize=(5,4), dpi=100)
             task2data = analytics.getFilteredTask2(self.pdData, self.docIdEntry.get())
@@ -85,34 +141,19 @@ class Application(tk.Frame):
             self.p = counts.hist()
             self.p.set_xlabel('Country', fontsize = 15)
             self.p.set_ylabel('Views', fontsize = 15)
-        
         # #self.a = self.fig.add_subplot(111)
         # #self.a.plot()
             self.canvas = FigureCanvasTkAgg(self.p, self.task2GraphFrame)
             self.canvas.show()
             self.canvas.get_tk_widget().pack()
-    #     self.hi_there = tk.Button(self)
-    #     self.hi_there["text"] = "Hello World\n(click me)"
-    #     self.hi_there["command"] = self.say_hi
-    #     self.hi_there.pack(side="top")
-    #     self.quit = tk.Button(self, text="QUIT", fg="red",
-    #                           command=root.destroy)
-    #     f = Figure(figsize=(5,4), dpi=100)
-    #     canvas = FigureCanvasTkAgg(f, master=root)
-    #     canvas.get_tk_widget().grid(row=1, column=3, rowspan=6)
-    #     self.quit.pack(side="bottom")
-    #     p = f.gca()
-    #     p.hist([0,0,0], [0,0,0])
-    #     p.set_xlabel('Median Value', fontsize = 15)
-    #     p.set_ylabel('Frequency', fontsize = 15)
-    #     canvas.show()
 
-    # def say_hi(self):
-    #     print("hi there, everyone!")
+    def drawTask3Hist(self):
+        plt.barh([1,2,3], [22,33,77], align='center', alpha=0.4)
+        plt.show()
 
     def displayPopup(self,title,message):
         self.top = tk.Toplevel()
-        self.top.wm_geometry('300x300')
+        self.top.wm_geometry('300x150')
         self.top.title(title)
         self.msg = tk.Message(self.top, text=message)
         self.msg.pack()
