@@ -5,12 +5,27 @@
 # External libraries
 import pandas as pd
 
+# My libraries
+import continents
+
+# setting pandas configs
+pd.options.mode.chained_assignment = None  # default='warn'
+
 # Print task 2 for CMD
 def printTask2(pdData, doc_id):
     print('Here are views by country for the given document')
     pdData = pdData.loc[pdData['subject_doc_id'] == doc_id]
-    print(pdData.groupby('visitor_country')['visitor_country'].count())
-
+    countryCount = pdData.groupby('visitor_country')['visitor_country'].count()
+    print('Visits grouped by country:')
+    print(countryCount)
+    for index, row in pdData.iterrows():
+        # Get the continent using continent module
+        cont = continents.continentName(continents.countryToContinent(row['visitor_country']))
+        pdData.loc[index,'visitor_country'] = cont
+    print('Countries by continent')
+    continentCount = pdData.groupby('visitor_country')['visitor_country'].count()
+    print(continentCount)
+    
 def getFilteredTask2(pdData, doc_id):
     return pdData.loc[pdData['subject_doc_id'] == doc_id]
 
