@@ -3,7 +3,7 @@
 # Created by Balraj 29/11/2016
 
 # System libraries
-import sys, json, argparse
+import sys, argparse
 # External libraries
 import pandas as pd
 import tkinter as tk

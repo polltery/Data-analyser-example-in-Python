@@ -4,17 +4,11 @@
 
 # System libraries
 import tkinter as tk
-import sys
 
 # External libraries
-import pandas as pd
 import matplotlib
-matplotlib.use('TkAgg')
-from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolbar2TkAgg
-from matplotlib.figure import Figure
+matplotlib.use('TkAgg') # Use this to set matplotlib as backend when using tkinter
 import matplotlib.pyplot as plt
-import matplotlib.mlab as mlab
-import numpy as np
 
 # My libraries
 import analytics
