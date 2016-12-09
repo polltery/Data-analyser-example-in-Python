@@ -19,13 +19,16 @@ or use
 python3 app.py --help
 ```
 
-External Python 3.5 Libraries required are
+External Python 3 Libraries required are
 - requests : for HTTP requests
 - pandas : for analytics functions
-- matlab : for plotting and displaying graphs
-- tkinter : for GUI
 - numpy : Library for doing number functions
 - matplotlib : Plotting of graphs
+
+The project comes with a reuqirements.txt file, to install all the external libraries simply use
+```
+pip install -r requirements.txt
+```
 
 Spec
 ===
@@ -36,32 +39,32 @@ Basic
 
 CMD Mode:
 1. Task 2 (completed)
-    1. Part a (completed)
-    2. Part b (completed)
+    a. Part a (completed)
+    b. Part b (completed)
 2. Task 3 (completed)
-    1. Part a (completed)
-    2. Part b (completed)
+    a. Part a (completed)
+    b. Part b (completed)
 3. Task 4 (completed)
 4. Task 5
-    1. Part a (completed)
-    2. Part b (completed)
-    3. Part c
-    4. Part d
-    5. Part e
-    6. Part f
+    a. Part a (completed)
+    b. Part b (completed)
+    c. Part c (completed)
+    d. Part d
+    e. Part e
+    f. Part f
 
 GUI Mode:
 1. Task 2 (completed)
-    1. Part a (completed)
-    2. Part b (completed)
+    a. Part a (completed)
+    b. Part b (completed)
 2. Task 3 (completed)
-    1. Part a (completed)
-    2. Part b (completed)
+    a. Part a (completed)
+    b. Part b (completed)
 3. Task 4 (completed)
 4. Task 5
-    1. Part a
-    2. Part b
-    3. Part c
-    4. Part d
-    5. Part e
-    6. Part f
+    a. Part a
+    b. Part b
+    c. Part c
+    d. Part d
+    e. Part e
+    f. Part f
