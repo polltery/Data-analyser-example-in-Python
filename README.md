@@ -1,8 +1,14 @@
 The application runs on python 3.5
 
-To install libraries for python 3.5, use
+External Python 3 Libraries required are
+- requests : for HTTP requests
+- pandas : for analytics functions
+- numpy : Library for doing number functions
+- matplotlib : Plotting of graphs
+
+The project comes with a reuqirements.txt file, to install all the external libraries simply use
 ```
-pip3 install <libraryName>
+pip install -r requirements.txt
 ```
 
 To run in GUI mode
@@ -17,17 +23,6 @@ python3 app.py [-t] [-d] [-u]
 or use
 
 python3 app.py --help
-```
-
-External Python 3 Libraries required are
-- requests : for HTTP requests
-- pandas : for analytics functions
-- numpy : Library for doing number functions
-- matplotlib : Plotting of graphs
-
-The project comes with a reuqirements.txt file, to install all the external libraries simply use
-```
-pip install -r requirements.txt
 ```
 
 Spec
