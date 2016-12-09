@@ -17,7 +17,7 @@ def loadFromURL(url, printData=False):
     return data
 
 # Loading JSON data locally
-def loadFromFile(path='sampleData.txt', printData=False, lineDelimited=True):
+def loadFromFile(path='data.txt', printData=False, lineDelimited=True):
     data = []
     if lineDelimited:
         with open(path) as data_file:

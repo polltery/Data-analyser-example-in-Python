@@ -34,7 +34,7 @@ def getFilteredTask2ByContinent(pdData, doc_id):
     return pdData.groupby('visitor_country')['visitor_country'].count()
 
 # Print task 3 for CMD
-def printTask3(pdData, verbose):
+def printTask3(pdData, verbose=True):
     print('Here are views from browsers : ')
     if not verbose:
         print(getFilteredTask3(pdData))
