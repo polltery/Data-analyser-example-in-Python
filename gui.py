@@ -125,7 +125,6 @@ class Application(tk.Frame):
         if self.docIdEntry.get() == '':
             self.displayPopup('Error','Please enter a document UUID')
         else:
-            self.fig = Figure(figsize=(5,4), dpi=100)
             task2Data = analytics.getFilteredTask2(self.pdData, self.docIdEntry.get())
             countries = task2Data.groupby('visitor_country')['visitor_country']
             counts = task2Data.groupby('visitor_country')['visitor_country'].count()
