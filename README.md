@@ -24,3 +24,5 @@ or use
 
 python3 app.py --help
 ```
+
+Note: Made as a part of Industrial Programming Coursework at Heriot Watt University. For more info visit the [google doc](https://docs.google.com/document/d/1K1jIh-i8Dyb9yZi0PnklrzaEYNU-_FndBjmf3bUg7BA/edit?usp=sharing)
